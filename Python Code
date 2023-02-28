@@ -1,0 +1,144 @@
+countB=countC=countJ=countY=countT=0;
+class Vote:
+    def __init__(self):
+        self.name ='';
+        self.contact_no=0;
+        self.age=0;
+        self.aadhar_no=0;
+    def entering_details(self):
+        self.name=input('Enter the name :')
+        self.contact_no=int(input('Enter mobile number :'))
+        self.age=int(input('Enter the age :'))
+        self.aadhar_no=int(input('Enter the Aadhar number :'))
+    def check_phno(self):
+        num=self.contact_no
+        count=0
+        while num != 0:
+            num //= 10
+            count += 1
+        
+        while count!=10 :
+            self.contact_no=int(input('Check and renter your Mobile Number :'))
+            num=self.contact_no;
+            count=0
+            while num != 0:
+                num //= 10
+                count += 1
+    def check_name(self):
+        while not(self.name.isalpha()):
+            self.name=input('Check and reneter your Name :')
+    def check_age(self):
+        if self.age >=18 :
+            print('Eligible for Voting ')
+            self.voting()
+            return 1
+        else:
+            print('Not eligible for Voting')
+            return 0
+    def check_aadhar(self):
+        num=self.aadhar_no
+        count=0
+        while num != 0:
+            num //= 10
+            count += 1
+        while count!=12:
+            self.aadhar_no=int(input('Check and renter your Aadhaar Number :'))
+            num=self.aadhar_no;
+            count=0
+            while num != 0:
+                num //= 10
+                count += 1
+    def voting(self):
+        print('Enter B for BJP party\n')
+        print('Enter C for Congress party\n')
+        print('Enter J for Janasena party\n')
+        print('Enter Y for YSR party\n')
+        print('Enter T for TDP party\n')
+        choice=input('Enter the party :')
+        global countB
+        global countC
+        global countJ
+        global countY
+        global countT
+        if choice=='B':
+            countB=countB+1
+        elif choice=='C':
+            countC=countC+1
+        elif choice=='J':
+            countJ=countJ+1
+        elif choice=='Y':
+            countY=countY+1
+        elif choice=='T':
+            countT=countT+1
+        else:
+            print('Entered invalid choice\n')
+class Node:
+   def __init__(self, dataval=None):
+      self.dataval = dataval
+      self.nextval = None
+
+class SLinkedList:
+   def __init__(self):
+      self.headval = None
+ 
+   def AtBegining(self,newdata):
+      NewNode = Node(newdata)
+      NewNode.nextval = self.headval
+      self.headval = NewNode
+
+   def AtEnd(self, newdata):
+      NewNode = Node(newdata)
+      if self.headval is None:
+         self.headval = NewNode
+         return
+      laste = self.headval
+      while(laste.nextval):
+         laste = laste.nextval
+      laste.nextval=NewNode
+
+   def listprint(self):
+      printval = self.headval
+      while printval is not None:
+         print (printval.dataval)
+         printval = printval.nextval 
+
+list = SLinkedList()
+Testarray=[]
+llist = SLinkedList()
+llist.AtBegining(0)
+n=int(input('Enter number of users :'))
+k=0
+for i in range(0,n):
+    a=Vote()
+    a.entering_details()
+    a.check_phno()
+    llist.AtEnd(i+1)
+    a.check_name()
+    a.check_aadhar()
+    k=a.check_age()
+    if k==True:
+          Testarray.append(a)
+   
+print('Number of votes won by BJP party : ',countB)
+print('Number of votes won by Congress party : ',countC)
+print('Number of votes won by Janasena party : ',countJ)
+print('Number of votes won by YSR party : ',countY)
+print('Number of votes won by TDP party : ',countT)
+count=[]
+count.append(countB)
+count.append(countC)
+count.append(countJ)
+count.append(countY)
+count.append(countT)
+max_value=max(count)
+max_index=count.index(max_value)
+if max_index==0:
+  print('BJP party won the Voting and number of votes :',max_value)
+elif max_index==1:
+  print('Congress party won the Voting and number of votes :',max_value)
+elif max_index==2:
+  print('Janasena party won the Voting and number of votes :',max_value)
+elif max_index==3:
+  print('YSR party won the Voting and number of votes :',max_value)
+elif max_index==4:
+  print('TDP party won the Voting and number of votes :',max_value)
